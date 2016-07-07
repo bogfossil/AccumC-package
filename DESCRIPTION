@@ -1,0 +1,9 @@
+Package: AccumC
+Type: Package
+Title: A package for estimating carbon accumulation in peatlands
+Version: 1.0
+Date: 2016-07-06
+Author: Jonathan E. Nichols
+Maintainer: Jonathan E. Nichols <jnichols@ldeo.columbia.edu>
+Description: Especially good for cores with many reworked macrofossils.
+License: CC BY
