@@ -175,6 +175,21 @@ age_test <- apply(age_test, 1:2, median)
  
 rate_test <- DBS/apply(age_test, 2, diff)
 
+##-------------------------------------
+## Start get rid of unreasonable rates
+##-------------------------------------
+
+avg_rate <- (ndbin*DBS)/apply(age_test, 2, max)  ## find the average rate for each iteration
+avg_rate_range <- (ndbin*DBS)/(range(allpdfs[calibration$maxLikeAge==max(calibration$maxLikeAge)][[1]]$age)-range(allpdfs[calibration$maxLikeAge==min(calibration$maxLikeAge)][[1]]$age))
+       ## find out the range of bottom dates, therefore the range of average sed rates
+
+rate_test <- rate_test[,avg_rate<=avg_rate_range[1]&avg_rate>=avg_rate_range[2]]    ## remove any tests that have a bottom date younger than the oldest calibrated date range
+rate_test <- rate_test[,apply(is.finite(rate_test), 2, sum)==nrow(rate_test)]       ## remove any tests that include infinite sed rates
+
+##-------------------------------------
+## End get rid of unreasonable rates
+##-------------------------------------
+
 
 AFBD <- matrix(approx(afbd, n=ndbin)$y, byrow=T, nrow = nrow(rate_test), ncol = ncol(rate_test))
 crate_test <-rate_test*AFBD*pct_C*10000
