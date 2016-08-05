@@ -185,6 +185,7 @@ avg_rate_range <- (ndbin*DBS)/(range(allpdfs[calibration$maxLikeAge==max(calibra
 
 rate_test <- rate_test[,avg_rate<=avg_rate_range[1]&avg_rate>=avg_rate_range[2]]    ## remove any tests that have a bottom date younger than the oldest calibrated date range
 rate_test <- rate_test[,apply(is.finite(rate_test), 2, sum)==nrow(rate_test)]       ## remove any tests that include infinite sed rates
+rate_test <- rate_test*(1/median(as.numeric(rate_test)))*(diff(range(calibration$depths))/diff(range(calibration$maxLikeAge)))
 
 ##-------------------------------------
 ## End get rid of unreasonable rates
