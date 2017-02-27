@@ -1,9 +1,10 @@
 plot.AccumC <-
 function(x,                 # an object of class 'AccumC'   
                         plot=T,            # make a simple plot in the current graphics window
-                        bigplot=T,         # make a pdf showing all the calibrated dates, the age PDFs and the CAR
+                        bigplot=F,         # make a pdf showing all the calibrated dates, the age PDFs and the CAR
                         box_col='gray',    # the color of the bars on the CAR plot
                         prettytitle=NA,    # The title of the "bigplot"
+                        filename = "AccumC_plot",     # directory location for "bigplot," defaults to main
                         ratelabel=T,       # add text labels indicating the rate for each bin
                         log_y_axis=F       # make the rate axis log
 ){
@@ -35,11 +36,11 @@ function(x,                 # an object of class 'AccumC'
       TOP <- round(min(calibration$maxLikeAge))
       ndbin <- round(DPT/DBS)
       corename <- meta$corename
-      if(is.na(corename) == T & bigplot == T){
-        while(file.exists(paste(corename))==F){
-          corename <- readline("What is the (case sensitive) folder name to save the bigplot?  \nIf you give the wrong answer, I'll ask you again.  ")
-        }
-          }else{}
+#      if(is.na(corename) == T & bigplot == T){
+#        while(file.exists(paste(corename))==F){
+#          corename <- readline("What is the (case sensitive) folder name to save the bigplot?  \nIf you give the wrong answer, I'll ask you again.  ")
+#        }
+#          }else{}
       AGEM <- rates$age
       depths <- calibration$depths
       depthbins <- 0:(diff(range(depths))/bin_size)*bin_size + min(depths)
@@ -122,7 +123,7 @@ if(bigplot==T){
   
   ### Open a new pdf document  
   
-  pdf(paste(corename,'/',corename,'.pdf',sep=""),w=6.5,h=9); par(oma=c(2,2,6,2))
+  pdf(paste(directory,'.pdf',sep=""),w=6.5,h=9); par(oma=c(2,2,6,2))
   
   ### Set the layout for the page of plots
   
