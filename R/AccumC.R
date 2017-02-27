@@ -192,7 +192,7 @@ rate_test <- rate_test*(1/median(as.numeric(rate_test)))*(diff(range(calibration
 ##-------------------------------------
 
 
-AFBD <- matrix(approx(afbd, n=ndbin)$y, byrow=T, nrow = nrow(rate_test), ncol = ncol(rate_test))
+AFBD <- matrix(approx(afbd, n=ndbin)$y, byrow=F, nrow = nrow(rate_test), ncol = ncol(rate_test))
 crate_test <-rate_test*AFBD*pct_C*10000
 CRATES <- apply(crate_test, 1, quantile, na.rm=T, probs=c(0.125, 0.25, 0.5, 0.75, 0.875))
 AGES <- apply(apply(age_test, 1:2, median), 1, quantile, na.rm=T, probs=c(0.125, 0.25, 0.5, 0.75, 0.875))
