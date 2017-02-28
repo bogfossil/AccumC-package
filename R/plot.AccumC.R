@@ -123,7 +123,7 @@ if(bigplot==T){
   
   ### Open a new pdf document  
   
-  pdf(paste(directory,'.pdf',sep=""),w=6.5,h=9); par(oma=c(2,2,6,2))
+  pdf(paste(filename,'.pdf',sep=""),w=6.5,h=9); par(oma=c(2,2,6,2))
   
   ### Set the layout for the page of plots
   
