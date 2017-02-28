@@ -7,7 +7,7 @@ Plot \code{"AccumC"} Objects
 \description{
 This function plots objects of class \code{"AccumC"}. It makes small plots in the current graphics window and/or a big plot saved as a \code{.pdf} file.}
 \usage{
-plot.AccumC(x, plot = T, bigplot = T, box_col = "gray", prettytitle = NA, ratelabel = T, log_y_axis = F)
+plot.AccumC(x, plot = T, bigplot = F, box_col = "gray", prettytitle = NA, filename = "AccumC_plot", ratelabel = T, log_y_axis = F)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -25,6 +25,9 @@ the fill color of boxes and bars; default is \code{"gray"}
 }
   \item{prettytitle}{
 A title for the \code{bigplot} that is different from \code{corename}
+}
+  \item{filename}{
+A filename or path for the \code{bigplot}
 }
   \item{ratelabel}{
 Logical. Annotate the age/depth model plot with (text) sedimentation rates?
