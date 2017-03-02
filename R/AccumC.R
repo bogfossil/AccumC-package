@@ -172,8 +172,11 @@ age_test <- apply(age_test, 2, sort)
 age_test <- array(age_test, dim=c(ndbin+1, ncol(age_test)/3, 3) )
 age_test <- apply(age_test, 1:2, median)
 
-age_test <- age_test[, age_test[1, ] <= max(allpdfs[[1]])]
-age_test <- age_test[, age_test[dim(age_test)[1], ] >= min(allpdfs[[length(allpdfs)]])]
+age_test[1, ] <- sample(all_pdfs[[1]][,1], size = dim(age_test)[2], replace = T, prob = all_pdfs[[1]][,2])
+age_test[dim(age_test)[1], ] <- sample(all_pdfs[[length(all_pdfs)]][,1], size = dim(age_test)[2], replace = T, prob = all_pdfs[[length(all_pdfs)]][,2])
+  
+#age_test <- age_test[, age_test[1, ] <= max(allpdfs[[1]])]
+#age_test <- age_test[, age_test[dim(age_test)[1], ] >= min(allpdfs[[length(allpdfs)]])]
  
 rate_test <- DBS/apply(age_test, 2, diff)
 
