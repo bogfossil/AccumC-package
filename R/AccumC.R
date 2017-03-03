@@ -191,7 +191,7 @@ avg_top_range <- (ndbin*DBS)/(range(allpdfs[calibration$maxLikeAge==max(calibrat
        ## find out the range of bottom dates, therefore the range of average sed rates
 
  rate_test <- rate_test[,avg_rate<=avg_rate_range[1]&avg_rate>=avg_rate_range[2]]    ## remove any tests that have a bottom date younger than the oldest calibrated date range
- rate_test <- rate_test[,avg_rate<=avg_rate_range[1]&avg_rate>=avg_rate_range[2]]    ## remove any tests that have a top date older than the youngest calibrated date range
+# rate_test <- rate_test[,avg_rate<=avg_rate_range[1]&avg_rate>=avg_rate_range[2]]    ## remove any tests that have a top date older than the youngest calibrated date range
 rate_test <- rate_test[,apply(is.finite(rate_test), 2, sum)==nrow(rate_test)]       ## remove any tests that include infinite sed rates
  rate_test <- rate_test*(1/median(as.numeric(rate_test)))*(diff(range(calibration$depths))/diff(range(calibration$maxLikeAge)))
 
