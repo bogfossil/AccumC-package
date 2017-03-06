@@ -172,8 +172,8 @@ age_test <- apply(age_test, 2, sort)
 age_test <- array(age_test, dim=c(ndbin+1, ncol(age_test)/3, 3) )
 age_test <- apply(age_test, 1:2, median)
 
-age_test[1, ] <- sample(allpdfs[[1]][,1], size = dim(age_test)[2], replace = T, prob = allpdfs[[1]][,2])
-age_test[dim(age_test)[1], ] <- sample(allpdfs[[length(allpdfs)]][,1], size = dim(age_test)[2], replace = T, prob = allpdfs[[length(allpdfs)]][,2])
+#age_test[1, ] <- sample(allpdfs[[1]][,1], size = dim(age_test)[2], replace = T, prob = allpdfs[[1]][,2])
+#age_test[dim(age_test)[1], ] <- sample(allpdfs[[length(allpdfs)]][,1], size = dim(age_test)[2], replace = T, prob = allpdfs[[length(allpdfs)]][,2])
   
 #age_test <- age_test[, age_test[1, ] <= max(allpdfs[[1]])]
 #age_test <- age_test[, age_test[dim(age_test)[1], ] >= min(allpdfs[[length(allpdfs)]])]
@@ -184,16 +184,16 @@ rate_test <- DBS/apply(age_test, 2, diff)
 ## Start get rid of unreasonable rates
 ##-------------------------------------
 
-avg_rate <- (ndbin*DBS)/apply(age_test, 2, max)  ## find the average rate for each iteration
-avg_rate_range <- (ndbin*DBS)/(range(allpdfs[calibration$maxLikeAge==max(calibration$maxLikeAge)][[1]]$age)-range(allpdfs[calibration$maxLikeAge==min(calibration$maxLikeAge)][[1]]$age))
+#avg_rate <- (ndbin*DBS)/apply(age_test, 2, max)  ## find the average rate for each iteration
+#avg_rate_range <- (ndbin*DBS)/(range(allpdfs[calibration$maxLikeAge==max(calibration$maxLikeAge)][[1]]$age)-range(allpdfs[calibration$maxLikeAge==min(calibration$maxLikeAge)][[1]]$age))
        ## find out the range of bottom dates, therefore the range of average sed rates
-avg_top_range <- (ndbin*DBS)/(range(allpdfs[calibration$maxLikeAge==max(calibration$maxLikeAge)][[1]]$age)-range(allpdfs[calibration$maxLikeAge==min(calibration$maxLikeAge)][[1]]$age))
+#avg_top_range <- (ndbin*DBS)/(range(allpdfs[calibration$maxLikeAge==max(calibration$maxLikeAge)][[1]]$age)-range(allpdfs[calibration$maxLikeAge==min(calibration$maxLikeAge)][[1]]$age))
        ## find out the range of bottom dates, therefore the range of average sed rates
 
- rate_test <- rate_test[,avg_rate<=avg_rate_range[1]&avg_rate>=avg_rate_range[2]]    ## remove any tests that have a bottom date younger than the oldest calibrated date range
+# rate_test <- rate_test[,avg_rate<=avg_rate_range[1]&avg_rate>=avg_rate_range[2]]    ## remove any tests that have a bottom date younger than the oldest calibrated date range
 # rate_test <- rate_test[,avg_rate<=avg_rate_range[1]&avg_rate>=avg_rate_range[2]]    ## remove any tests that have a top date older than the youngest calibrated date range
 rate_test <- rate_test[,apply(is.finite(rate_test), 2, sum)==nrow(rate_test)]       ## remove any tests that include infinite sed rates
- rate_test <- rate_test*(1/median(as.numeric(rate_test)))*(diff(range(calibration$depths))/diff(range(calibration$maxLikeAge)))
+# rate_test <- rate_test*(1/median(as.numeric(rate_test)))*(diff(range(calibration$depths))/diff(range(calibration$maxLikeAge)))
 
 ##-------------------------------------
 ## End get rid of unreasonable rates
