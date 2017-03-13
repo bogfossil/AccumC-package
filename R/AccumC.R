@@ -194,6 +194,9 @@ rate_test <- DBS/apply(age_test, 2, diff)
 # rate_test <- rate_test[,avg_rate<=avg_rate_range[1]&avg_rate>=avg_rate_range[2]]    ## remove any tests that have a top date older than the youngest calibrated date range
 rate_test <- rate_test[,apply(is.finite(rate_test), 2, sum)==nrow(rate_test)]       ## remove any tests that include infinite sed rates
 # rate_test <- rate_test*(1/median(as.numeric(rate_test)))*(diff(range(calibration$depths))/diff(range(calibration$maxLikeAge)))
+  
+fudge <- log(meta$depth / diff(range(maxLikeAge))) / median(log(julieAcc$rate_test), na.rm = T)
+rate_test <- exp(log(rate_test) * fudge)
 
 ##-------------------------------------
 ## End get rid of unreasonable rates
