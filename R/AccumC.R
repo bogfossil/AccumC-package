@@ -197,8 +197,9 @@ rate_test <- rate_test[,apply(is.finite(rate_test), 2, sum)==nrow(rate_test)]   
 
 cDens <- density(log(rate_test))
 cMode <- cDens$x[which.max(cDens$y)]
-fudge <- log(meta$depth / diff(range(maxLikeAge))) / cMode
-rate_test <- exp(log(rate_test) * fudge)
+#fudge <- log(meta$depth / diff(range(maxLikeAge))) / cMode
+#rate_test <- exp(log(rate_test) * fudge)
+rate_test <- exp((log(rate_test) - cMode) + log(meta$depth / diff(range(maxLikeAge))))
 
 ##-------------------------------------
 ## End get rid of unreasonable rates
