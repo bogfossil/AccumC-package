@@ -209,6 +209,13 @@ rate_test <- exp((log(rate_test) - cMode) + log(meta$depth / diff(range(maxLikeA
 AFBD <- matrix(approx(afbd, n=ndbin)$y, byrow=F, nrow = nrow(rate_test), ncol = ncol(rate_test))
 crate_test <-rate_test*AFBD*pct_C*10000
 CRATES <- apply(crate_test, 1, quantile, na.rm=T, probs=c(0.125, 0.25, 0.5, 0.75, 0.875))
+
+ peak <- function(x){
+  d <- density(x, na.rm = T)
+  y <- d$x[which.max(d$y)]
+  return(y)}
+  
+CRATES[3,] <- exp(apply(log(crate_test), 1, peak))
 AGES <- apply(apply(age_test, 1:2, median), 1, quantile, na.rm=T, probs=c(0.125, 0.25, 0.5, 0.75, 0.875))
 AGEM <- apply(age_test, 1, median)[-1] - 0.5*diff(apply(age_test, 1, median))
 
